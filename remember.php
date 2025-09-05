@@ -64,7 +64,7 @@ $site_language=site_language();
               $newpassword = null;
               for($i=0; $i < 14; $i++)
               {
-                $newpassword .= $acceptedChars{mt_rand(0, $max)};
+                $newpassword .= $acceptedChars[mt_rand(0, $max)];
               }
 
 
