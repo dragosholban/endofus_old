@@ -97,7 +97,7 @@ class DataBaseMySQL
 
 class DataBase_theend extends DataBaseMySQL
 {
-    var $Host = "endofus.db.9044892.hostedresource.com";
+    var $Host = "localhost";
     var $User = "endofus";
     var $Password = "Avioane13";
     var $DataBase = "endofus";
