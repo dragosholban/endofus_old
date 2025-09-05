@@ -99,7 +99,7 @@ class DataBase_theend extends DataBaseMySQL
 {
     var $Host = "localhost";
     var $User = "endofus";
-    var $Password = "Avioane13";
+    var $Password = "Avioane13!";
     var $DataBase = "endofus";
 }
 
