@@ -33,7 +33,7 @@
                                 $db->query($query);
                                 $query="insert into user_profile values(".$id.",'','','','')";
                                 $db->query($query);
-                                $query="insert into seif values(".$id.",20000,10000000,'')";
+                                $query="insert into seif values(".$id.",20000,10000000,NOW())";
                                 $db->query($query);
                                 $query="insert into upgrades values(".$id.",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)";
                                 $db->query($query);

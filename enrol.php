@@ -107,7 +107,7 @@
                         $email_text.="You registered to our online game with following information:\n";
                         $email_text.="\n\tUsername: ".$username."\n\tPassword: ".$password."\n\tEmail: ".$email."\n";
                         $email_text.="You can play the best online game after you activate your account by clicking this link: \n";
-                        $email_text.="\thttp://www.endofus.net/activate_account.php?id=".$id."&user_code=".$user_code."\n";
+                        $email_text.="\thttps://endofus.pixery.ro/activate_account.php?id=".$id."&user_code=".$user_code."\n";
                         $email_text.="\n\tThis link will be available only for 24 hours. After that you will need to register again.\n\tThank you!";
 
                         $email_header="From: noreply@endofus.net\n";
