@@ -1,119 +1,118 @@
 <?php
 class DataBaseMySQL
 {
+    // connection properties
+    var $Host = "";
+    var $DataBase = "";
+    var $User = "";
+    var $Password = "";
 
- // date membru
+    var $Link_ID = null;   // mysqli connection
+    var $Query_ID = null;  // mysqli result
+    var $Record = array(); // current record
+    var $Row;              // current row number
+    var $Errno = 0;
+    var $Error = "";
 
- var $Host="";                // adresa serverului MySQL
- var $DataBase="";        // numele bazei de date de pe server
- var $User="";                // numele utilizatorului
- var $Password="";        // parola utilizatorului
- var $Link_ID=0;        // rezultatul lui mysql_connect()
- var $Query_ID=0;        // rezultatul celei mai recente mysql_query()
- var $Record=array();        // rezultatul curent al lui mysql_fetch_array()
- var $Row;                // numarul randului curent
- var $Errno=0;                // starea de eroare a interogarii
- var $Error="";
+    // stop on fatal error
+    function halt($msg)
+    {
+        printf("<p><b>MySQL error!</b></p>\n");
+        die("Session halted: " . $msg);
+    }
 
- // metode
+    // connect to database
+    function connect()
+    {
+        if ($this->Link_ID == null) {
+            $this->Link_ID = new mysqli($this->Host, $this->User, $this->Password, $this->DataBase);
 
- // opreste executia in caz de eroare fatala
- function halt($msg)
- {
-  printf("<p>Database error: %s</p>\n",$msg);
-  printf("<p>MySQL error: <b>%s (%s)</b></p>\n",$this->Errno,$this->Error);
-  printf("<p><b>MySQL error!</b></p>\n");
-  die("Session halted");
- }
+            if ($this->Link_ID->connect_error) {
+                $this->halt("Connect failed: " . $this->Link_ID->connect_error);
+            }
+        }
+    }
 
- // conectarea la baza de date
- function connect()
- {
-  if($this->Link_ID==0)        // inca nu exista o conexiune
-  {
-   $this->Link_ID=mysql_connect($this->Host,$this->User,$this->Password);
-   // succes sau esec?
-   if(!$this->Link_ID)
-    $this->halt("Connect failed");
-   // deschide baza de date
-   if(!mysql_query(sprintf("use %s",$this->DataBase),$this->Link_ID))
-    $this->halt("Cannot use database".$this->DataBase);
-  }
- }
+    // run a query
+    function query($query_str)
+    {
+        $this->connect();
 
- // trimite o interogare serverulu MySQL
- function query($query_str)
- {
-  // realizeaza conectarea
-  $this->connect();
-  // incearca sa execute interogarea
-  $this->Query_ID=mysql_query($query_str,$this->Link_ID);
-  // initial stabilim pointerul pe prima inregistrare
-  $this->Row=0;
-  // salveaza erorile
-  $this->Errno=mysql_errno();
-  $this->Error=mysql_error();
-  // eroare fatala?
-  if(!$this->Query_ID)
-   $this->halt("Invalid SQL: ".$query_str);
-  return $this->Query_ID;
- }
+        $this->Query_ID = $this->Link_ID->query($query_str);
+        $this->Row = 0;
 
- // furnizeaza daca mai exista o inregistrare
- function next_record()
- {
-  // salveaza intr-un tablou inregistrarile
-  $this->Record=mysql_fetch_array($this->Query_ID);
-  $this->Row++;
-  // salveaza erorile
-  $this->Errno=mysql_errno();
-  $this->Error=mysql_error();
-  // returneaza inregistrarea gasita
-  $stat=is_array($this->Record);
-  if(!$stat)
-  {
-   // nu mai exista o alta inregistrare
-   mysql_free_result($this->Query_ID);
-   // se elibereaza interogarea
-   $this->Query_ID=0;
-  }
-  return $stat;
- }
+        if (!$this->Query_ID) {
+            $this->Errno = $this->Link_ID->errno;
+            $this->Error = $this->Link_ID->error;
+            $this->halt("Invalid SQL: " . $query_str);
+        }
 
- // furnizeaza o inregistrare dupa pozitia ei
- function seek($pos)
- {
-  $status=mysql_data_seek($this->Query_ID,$pos);
-  if($status)
-   $this->Row=$pos;
-  return;
- }
+        return $this->Query_ID;
+    }
 
- // numarul de inregistrari gasite
- function num_rows()
- {
-  return mysql_num_rows($this->Query_ID);
- }
+    // fetch next record
+    function next_record()
+    {
+        if ($this->Query_ID) {
+            $this->Record = $this->Query_ID->fetch_assoc();
+            $this->Row++;
 
- // numarul de campuri
- function num_fields()
- {
-  return mysql_num_fields($this->Query_ID);
- }
+            if (!$this->Record) {
+                $this->Query_ID->free();
+                $this->Query_ID = null;
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 
- // valoarea unui camp particular
- function get_field($field)
- {
-  return $this->Return[$field];
- }
+    // move to a specific row
+    function seek($pos)
+    {
+        if ($this->Query_ID) {
+            $this->Query_ID->data_seek($pos);
+            $this->Row = $pos;
+        }
+    }
+
+    // number of rows
+    function num_rows()
+    {
+        return ($this->Query_ID) ? $this->Query_ID->num_rows : 0;
+    }
+
+    // number of fields
+    function num_fields()
+    {
+        return ($this->Query_ID) ? $this->Query_ID->field_count : 0;
+    }
+
+    // get field value
+    function get_field($field)
+    {
+        return isset($this->Record[$field]) ? $this->Record[$field] : null;
+    }
+
+    function sql_quote($str)
+    {
+        $this->connect();
+        return $this->Link_ID->real_escape_string($str);
+    }
 }
 
 class DataBase_theend extends DataBaseMySQL
 {
-  var $Host="endofus.db.9044892.hostedresource.com";
-  var $User="endofus";
-  var $Password="Avioane13";
-  var $DataBase="endofus";
+    var $Host = "localhost";
+    var $User = "endofus";
+    var $Password = "Avioane13!";
+    var $DataBase = "endofus";
 }
 
-?>
+class DataBase_s2 extends DataBaseMySQL
+{
+    var $Host = "localhost";
+    var $User = "ens_ens15";
+    var $Password = "parolaens15";
+    var $DataBase = "ens_s2";
+}
