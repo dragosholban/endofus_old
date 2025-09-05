@@ -35,7 +35,7 @@ if ($db_theend->num_rows())
   {
     $query="insert into online_statistic values(".$userid.",'".$data["year"]."-".$data["mon"]."-".$data["mday"]."')";
     $db_theend->query($query);
-    $last_mon = date("Y-m-d", mktime(0,0,0, date(m)-1, date(d), date(Y)));
+    $last_mon = date("Y-m-d", mktime(0,0,0, date('m')-1, date('d'), date('Y')));
     $query="delete from online_statistic where data<'".$last_mon."'";
     $db_theend->query($query);
   }
