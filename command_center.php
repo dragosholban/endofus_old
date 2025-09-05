@@ -107,7 +107,7 @@ function command_center()
 
   echo "<br><br>";
 
-  $query="select alliances.name, alliance_members.grade from alliances, alliance_members where .alliance_members.id_member=".$_COOKIE["uid"]." and alliance_members.id_al=alliances.id and alliance_members.grade>=0";
+  $query="select alliances.name, alliance_members.grade from alliances, alliance_members where alliance_members.id_member=".$_COOKIE["uid"]." and alliance_members.id_al=alliances.id and alliance_members.grade>=0";
   $db->query($query);
   if($db->num_rows())
   {
