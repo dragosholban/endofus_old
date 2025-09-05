@@ -37,10 +37,12 @@ function alphanum_field($field)
 
 function email_field($field)
 {
-        if(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $field))
-                return 1;
-        else
-                return 0;
+    // validate email using regex
+    if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $field)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 function js_alert($message)
