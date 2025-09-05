@@ -19,7 +19,7 @@ function account()
 
   if($_POST["what"]=="change_friend" && $_POST["username"])
   {
-    $post_username=sql_quote($_POST["username"]);
+    $post_username=$db_theend->sql_quote($_POST["username"]);
     $query="select id from users where username='".$post_username."'";
     $db_theend->query($query);
     if($db_theend->num_rows())

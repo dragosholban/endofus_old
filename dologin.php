@@ -6,8 +6,8 @@ include 'functions.php';
 $db_theend = new DataBase_theend;
 $db_theend->connect();
 
-$username=sql_quote($_POST["username"]);
-$password=sql_quote($_POST["password"]);
+$username=$db_theend->sql_quote($_POST["username"]);
+$password=$db_theend->sql_quote($_POST["password"]);
 
 $code=$_POST["sendcode"];
 $query="select value from image_codes where id=".$code;

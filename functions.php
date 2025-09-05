@@ -53,25 +53,6 @@ function js_redirect($adresa)
   echo "<script>window.location='".$adresa."'</script>";
 }
 
-function sql_quote($value)
-{
-  if(get_magic_quotes_gpc())
-  {
-    $value=stripslashes($value);
-  }
-  //check if this function exists
-  if(function_exists("mysql_real_escape_string"))
-  {
-    $value=mysql_real_escape_string($value);
-  }
-  //for PHP version < 4.3.0 use addslashes
-  else
-  {
-    $value=addslashes($value);
-  }
-  return $value;
-}
-
 function date_difference($a,$b,$units)
 {
         $dif=mktime($a["hours"],$a["minutes"],$a["seconds"],$a["mon"],$a["mday"],$a["year"])-strtotime($b);

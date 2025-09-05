@@ -1125,7 +1125,7 @@ function alliance_manage($al_name,$grade)
   	
   if($_POST["do"]=="change_message")
   {
-    $message=sql_quote($_POST["message"]);
+    $message=$db->sql_quote($_POST["message"]);
 
     $query="update alliances set message='".$message."' where id=".$id_al;
     $db->query($query);

@@ -93,6 +93,12 @@ class DataBaseMySQL
     {
         return isset($this->Record[$field]) ? $this->Record[$field] : null;
     }
+
+    function sql_quote($str)
+    {
+        $this->connect();
+        return $this->Link_ID->real_escape_string($str);
+    }
 }
 
 class DataBase_theend extends DataBaseMySQL
