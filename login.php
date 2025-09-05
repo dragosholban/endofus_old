@@ -74,7 +74,7 @@ else
 ?>
 <input class="input5" type="password" name="password"></input></p>
 <p class="bigline">
-<?
+<?php
   /*
   $acceptedChars = '0123456789';
   $max = strlen($acceptedChars)-1;
