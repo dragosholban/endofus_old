@@ -21,7 +21,7 @@ function semafor_on($uid)
   $max = strlen($acceptedChars)-1;
   $semafor_key = null;
   for($i=0; $i < 64; $i++) {
-   $semafor_key .= $acceptedChars{mt_rand(0, $max)};
+   $semafor_key .= $acceptedChars[mt_rand(0, $max)];
   }
 
   while(!$semafor && $try<50)
