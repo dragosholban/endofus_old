@@ -22,7 +22,7 @@ function command_center()
   $query="select armory.id, users.race, units, attack, untrained, workers, level, exp, gold, turnlen, lastacct, rank, attack_rank, defense_rank, spy_rank, sentry_rank, power_bonus, users.best_rank, users.votes from armory, users where armory.id=".$_COOKIE["uid"]." and armory.id=users.id";
   $db_theend->query($query);
 
-  $no_queries+=1;
+  $no_queries = 1;
   $db_theend->next_record();
   $myid=$db_theend->Record["id"];
   $race=$db_theend->Record["race"];
