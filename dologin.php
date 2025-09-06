@@ -41,7 +41,7 @@ if ($db_theend->num_rows())
   }
 
   $new_cookie=0;
-  if(!$_COOKIE["seid"])
+  if(!isset($_COOKIE["seid"]) || $_COOKIE["seid"]=="")
   {
     $computer=md5(getenv('REMOTE_ADDR').microtime());
     setcookie("seid","".$computer,mktime(0,0,0,12,31,2020));
@@ -86,8 +86,8 @@ if ($db_theend->num_rows())
     $db_theend->query($query);
     
     // ad verify
-    
-    if($_COOKIE["ad"]==1)
+
+    if(isset($_COOKIE["ad"]) && $_COOKIE["ad"]==1)
     {
       $query="select uid from accept_ads where uid=".$userid;	
       $db_theend->query($query);
