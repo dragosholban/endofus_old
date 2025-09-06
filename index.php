@@ -8,12 +8,12 @@ include "monitors.php";
 $db = new DataBase_theend;
 $db->connect();
 
-if($_GET["from"])
+if(isset($_GET["from"]) && $_GET["from"])
 {
   $query="insert into referals values(DEFAULT,'".$_GET["from"]."','".getenv("REMOTE_ADDR")."','".date("Y-m-d H:i:s")."')";
   $db->query($query);
 }
-if($_GET["ref"] && (GregorianToJD(date("m"),date("d"),date("Y"))-GregorianToJD(8,12,2007)<=0) && is_numeric($_GET["ref"]))
+if(isset($_GET["ref"]) && (GregorianToJD(date("m"),date("d"),date("Y"))-GregorianToJD(8,12,2007)<=0) && is_numeric($_GET["ref"]))
 {
 	$ip=getenv("REMOTE_ADDR");
     $hostname = gethostbyaddr($ip);

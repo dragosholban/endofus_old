@@ -72,11 +72,11 @@ function date_difference($a,$b,$units)
 function site_language()
 {
   $site_language="en";
-  if($_COOKIE["lang"]=="ro")
+  if(isset($_COOKIE["lang"]) && $_COOKIE["lang"]=="ro")
   {
     $site_language="ro";
   }
-  if($_COOKIE["lang"]=="en")
+  if(isset($_COOKIE["lang"]) && $_COOKIE["lang"]=="en")
   {
     $site_language="en";
   }
@@ -203,11 +203,11 @@ function top()
   echo "&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;";
   if($site_language=="ro")
   {
-    echo "<font color=\"#FFA500\">Ziua ".(GregorianToJD(date("m"),date("d"),date("Y"))-GregorianToJD(2,9,2007)).":</font> ".date("M d, Y H:i")." <font color=\"#FFA500\"></font>";
+    echo "<font color=\"#FFA500\">Ziua ".(gregoriantojd(date("m"),date("d"),date("Y"))-gregoriantojd(2,9,2007)).":</font> ".date("M d, Y H:i")." <font color=\"#FFA500\"></font>";
   }
   else
   {
-    echo "<font color=\"#FFA500\">Day ".(GregorianToJD(date("m"),date("d"),date("Y"))-GregorianToJD(2,9,2007)).":</font> ".date("M d, Y H:i")." <font color=\"#FFA500\"></font>";
+    echo "<font color=\"#FFA500\">Day ".(gregoriantojd(date("m"),date("d"),date("Y"))-gregoriantojd(2,9,2007)).":</font> ".date("M d, Y H:i")." <font color=\"#FFA500\"></font>";
   }
   echo "</div>";
   

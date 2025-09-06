@@ -114,6 +114,14 @@ class DataBase_theend extends DataBaseMySQL
     var $DataBase = "endofus";
 }
 
+// class DataBase_theend extends DataBaseMySQL
+// {
+//     var $Host = "mysql";
+//     var $User = "root";
+//     var $Password = "root_password";
+//     var $DataBase = "endofus";
+// }
+
 class DataBase_s2 extends DataBaseMySQL
 {
     var $Host = "localhost";
