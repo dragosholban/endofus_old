@@ -91,8 +91,16 @@ function acct($id,$gold,$attack,$units,$workers,$level,$exp,$datetime,$goldupgra
         $turns++;
         $turns++;
         if($turns>1000) $turns=1000;
-
-        $query="update armory set exp=".$exp.", level=".$level.", gold=gold+100+level*100+".floor($units+(10+$goldupgrade)*$workers).", lastacct='".$datetime["year"]."-".$datetime["mon"]."-".$datetime["mday"]." ".$datetime["hours"].":".$datetime["minutes"].":".$datetime["seconds"]."', turn=".$turns." where id=".$id;
+        $lastacct = sprintf(
+            "%04d-%02d-%02d %02d:%02d:%02d",
+            $datetime["year"],
+            $datetime["mon"],
+            $datetime["mday"],
+            $datetime["hours"],
+            $datetime["minutes"],
+            $datetime["seconds"]
+        );
+        $query="update armory set exp=".$exp.", level=".$level.", gold=gold+100+level*100+".floor($units+(10+$goldupgrade)*$workers).", lastacct='".$lastacct."', turn=".$turns." where id=".$id;
         $db->query($query);
         
         // upgrades levels update
