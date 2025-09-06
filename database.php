@@ -44,7 +44,12 @@ class DataBaseMySQL
         if (!$this->Query_ID) {
             $this->Errno = $this->Link_ID->errno;
             $this->Error = $this->Link_ID->error;
-            $this->halt("Invalid SQL: " . $query_str);
+
+            // log to PHP error log
+            error_log("SQL ERROR [{$this->Errno}]: {$this->Error} | Query: {$query_str}");
+
+            // also throw an exception so it’s visible when running manually
+            throw new Exception("SQL ERROR [{$this->Errno}]: {$this->Error} | Query: {$query_str}");
         }
 
         return $this->Query_ID;
