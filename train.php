@@ -410,7 +410,7 @@ function train_units()
   $gold=$db_theend->Record["gold"];
   $elite_level=$db_theend->Record["elite"];
 
-  if(round($_POST["atunit"]) && round($_POST["atunit"])>0)
+  if(isset($_POST["atunit"]) && is_numeric($_POST["atunit"]) && round($_POST["atunit"])>0)
   {
     if(round($_POST["atunit"])<=$untrained)
     {
@@ -434,7 +434,7 @@ function train_units()
     }
   }
 
-  if(round($_POST["eliteat"]) && round($_POST["eliteat"])>0)
+  if(isset($_POST["eliteat"]) && is_numeric($_POST["eliteat"]) && round($_POST["eliteat"]) && round($_POST["eliteat"])>0)
   {
     if(($elite_at+$elite_df+round($_POST["eliteat"])+round($_POST["elitedf"]))<=($attack+$elite_at+$elite_df+round($_POST["eliteat"])+round($_POST["elitedf"]))*$elite_level/10)
     {
@@ -466,7 +466,7 @@ function train_units()
     }
   }
 
-  if(round($_POST["elitedf"]) && round($_POST["elitedf"])>0)
+  if(isset($_POST["elitedf"]) && is_numeric($_POST["elitedf"]) && round($_POST["elitedf"]) && round($_POST["elitedf"])>0)
   {
     if(($elite_at+$elite_df+round($_POST["elitedf"])+round($_POST["eliteat"]))<=($attack+$elite_at+$elite_df+round($_POST["eliteat"])+round($_POST["elitedf"]))*$elite_level/10)
     {
@@ -498,7 +498,7 @@ function train_units()
     }
   }
 
-  if(round($_POST["spy"]) && round($_POST["spy"])>0)
+  if(isset($_POST["spy"]) && is_numeric($_POST["spy"]) && round($_POST["spy"]) && round($_POST["spy"])>0)
   {
     if(round($_POST["spy"])<=$untrained)
     {
@@ -522,7 +522,7 @@ function train_units()
     }
   }
 
-  if(round($_POST["antispy"]) && round($_POST["antispy"])>0)
+  if(isset($_POST["antispy"]) && is_numeric($_POST["antispy"]) && round($_POST["antispy"]) && round($_POST["antispy"])>0)
   {
     if(round($_POST["antispy"])<=$untrained)
     {
@@ -546,7 +546,7 @@ function train_units()
     }
   }
 
-  if(round($_POST["workers"]) && round($_POST["workers"])>0)
+  if(isset($_POST["workers"]) && is_numeric($_POST["workers"]) && round($_POST["workers"])>0)
   {
     if(round($_POST["workers"])<=$untrained)
     {
@@ -577,7 +577,7 @@ function buy_units()
 {
   semafor_on($_COOKIE["uid"]);
 
-  if(round($_POST["units"])>0)
+  if(is_numeric($_POST["units"]) && round($_POST["units"])>0)
   {
     $db_theend = new DataBase_theend;
     $db_theend->connect();
@@ -628,7 +628,7 @@ function disband()
 
   semafor_on($_COOKIE["uid"]);
 
-  if(round($_POST["atunits"])>0)
+  if( is_numeric($_POST["atunits"]) && round($_POST["atunits"])>0)
   {
      $query="select armory.attack, armory.untrained, armory.id from armory where armory.id=".$_COOKIE["uid"];
      $db_theend->query($query);
@@ -641,7 +641,7 @@ function disband()
      }
   }
 
-  if(round($_POST["dfunits"])>0)
+  if(is_numeric($_POST["dfunits"]) && round($_POST["dfunits"])>0)
   {
      $query="select armory.defense, armory.untrained, armory.id from armory where armory.id=".$_COOKIE["uid"];
      $db_theend->query($query);
@@ -654,7 +654,7 @@ function disband()
      }
   }
 
-  if(round($_POST["spy"])>0)
+  if(is_numeric($_POST["spy"]) && round($_POST["spy"])>0)
   {
      $query="select spy, untrained, id from armory where id=".$_COOKIE["uid"];
      $db_theend->query($query);
@@ -667,7 +667,7 @@ function disband()
      }
   }
 
-  if(round($_POST["antispy"])>0)
+  if(is_numeric($_POST["antispy"]) && round($_POST["antispy"])>0)
   {
      $query="select antispy, untrained, id from armory where id=".$_COOKIE["uid"];
      $db_theend->query($query);
@@ -680,7 +680,7 @@ function disband()
      }
   }
 
-  if(round($_POST["workers"])>0)
+  if(is_numeric($_POST["workers"]) && round($_POST["workers"])>0)
   {
      $query="select workers, untrained, id from armory where id=".$_COOKIE["uid"];
      $db_theend->query($query);
